@@ -23,7 +23,15 @@ exports.createBike = async (req, res) => {
 
 exports.getAllBikes = async (req, res) => {
   try {
-  } catch (error) {}
+    const bikes = await Bike.find();
+
+    res.status(200).json(bikes);
+  } catch (error) {
+    console.error('Getting bikes database error:', error.message);
+    res
+      .status(500)
+      .json({ error: `Getting bikes database error: ${error.message}` });
+  }
 };
 
 exports.removeBikeById = async (req, res) => {
