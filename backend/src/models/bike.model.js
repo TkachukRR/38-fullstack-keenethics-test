@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { BIKE_STATUS_ENUM } = require('../enums');
 
 const bikeSchema = new Schema({
   ID: {
@@ -38,8 +39,8 @@ const bikeSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['available', 'busy', 'unavailable'],
-    default: 'available',
+    enum: BIKE_STATUS_ENUM,
+    default: BIKE_STATUS_ENUM.at(0),
   },
 });
 
