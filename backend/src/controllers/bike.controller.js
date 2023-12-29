@@ -1,5 +1,6 @@
 const Bike = require('../models/bike.model');
 const { validateCreateBike } = require('../utils/validators');
+const { handleError } = require('../controllers/error.controller');
 
 exports.createBike = async (req, res) => {
   try {
@@ -14,10 +15,7 @@ exports.createBike = async (req, res) => {
     await newBike.save();
     res.status(201).json(newBike);
   } catch (error) {
-    console.error('Creating bike database error:', error.message);
-    res
-      .status(500)
-      .json({ error: `Creating bike database error: ${error.message}` });
+    handleError(res, error, 500, 'Creating bike database error');
   }
 };
 
@@ -27,10 +25,7 @@ exports.getAllBikes = async (req, res) => {
 
     res.status(200).json(bikes);
   } catch (error) {
-    console.error('Getting bikes database error:', error.message);
-    res
-      .status(500)
-      .json({ error: `Getting bikes database error: ${error.message}` });
+    handleError(res, error, 500, 'Getting bikes database error');
   }
 };
 
