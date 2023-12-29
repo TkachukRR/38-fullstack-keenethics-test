@@ -10,6 +10,7 @@ const CLUSTER = process.env.MONGODB_CLUSTER;
 const ADMIN_API_PREFIX = '/api/admin';
 
 app.use(cors());
+app.use(express.json());
 
 async function connectionToDatabase() {
   try {
