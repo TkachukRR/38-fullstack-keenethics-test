@@ -2,6 +2,7 @@ const Bike = require('../models/bike.model');
 const {
   validateCreateBike,
   validateDeleteBike,
+  validateChangeBikeStatus,
 } = require('../utils/validators');
 const { handleError } = require('../controllers/error.controller');
 
@@ -53,7 +54,26 @@ exports.removeBikeById = async (req, res) => {
 
 exports.changeBikeStatus = async (req, res) => {
   try {
-  } catch (error) {}
+    const bikeId = req.params.id;
+    const newStatus = req.body.status;
+    const validationError = await validateChangeBikeStatus(bikeId, newStatus);
+
+    if (validationError) {
+      return res.status(400).json(validationError);
+    }
+
+    await Bike.findOneAndUpdate(
+      { ID: bikeId },
+      { $set: { status: newStatus } },
+      { new: true },
+    );
+
+    res.status(200).json({
+      message: `Bike with ID - ${bikeId} status updated to ${newStatus} successfully.`,
+    });
+  } catch (error) {
+    handleError(res, error, 500, 'Changing bike status database error');
+  }
 };
 
 exports.getBikesStats = async (req, res) => {

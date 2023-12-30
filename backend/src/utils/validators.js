@@ -1,4 +1,5 @@
 const Bike = require('../models/bike.model');
+const { BIKE_STATUS_ENUM } = require('../enums');
 
 const TEXT_FIELD_MIN_LENGTH = 5;
 
@@ -69,6 +70,24 @@ exports.validateDeleteBike = async (ID) => {
   const existingBike = await Bike.findOne({ ID });
 
   if (!existingBike) {
+    return { error: 'Bike not found.' };
+  }
+
+  return null;
+};
+
+exports.validateChangeBikeStatus = async (bikeId, newStatus) => {
+  if (!bikeId) {
+    return { error: 'Bike ID is required.' };
+  }
+
+  const validStatuses = [...BIKE_STATUS_ENUM];
+  if (!validStatuses.includes(newStatus)) {
+    return { error: 'Invalid status provided.' };
+  }
+
+  const bike = await Bike.findOne({ ID: bikeId });
+  if (!bike) {
     return { error: 'Bike not found.' };
   }
 
