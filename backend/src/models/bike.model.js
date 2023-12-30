@@ -40,7 +40,7 @@ const bikeSchema = new Schema({
   status: {
     type: String,
     enum: BIKE_STATUS_ENUM,
-    default: BIKE_STATUS_ENUM.at(0),
+    default: BIKE_STATUS_ENUM.AVAILABLE,
   },
 });
 

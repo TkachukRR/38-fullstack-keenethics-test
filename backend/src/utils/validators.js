@@ -81,8 +81,7 @@ exports.validateChangeBikeStatus = async (bikeId, newStatus) => {
     return { error: 'Bike ID is required.' };
   }
 
-  const validStatuses = [...BIKE_STATUS_ENUM];
-  if (!validStatuses.includes(newStatus)) {
+  if (!BIKE_STATUS_ENUM.hasOwnProperty(newStatus.toUpperCase())) {
     return { error: 'Invalid status provided.' };
   }
 
