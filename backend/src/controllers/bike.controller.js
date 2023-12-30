@@ -1,5 +1,8 @@
 const Bike = require('../models/bike.model');
-const { validateCreateBike } = require('../utils/validators');
+const {
+  validateCreateBike,
+  validateDeleteBike,
+} = require('../utils/validators');
 const { handleError } = require('../controllers/error.controller');
 
 exports.createBike = async (req, res) => {
@@ -31,7 +34,21 @@ exports.getAllBikes = async (req, res) => {
 
 exports.removeBikeById = async (req, res) => {
   try {
-  } catch (error) {}
+    const bikeId = req.params.id;
+    const validationError = await validateDeleteBike(bikeId);
+
+    if (validationError) {
+      return res.status(404).json(validationError);
+    }
+
+    await Bike.deleteOne();
+
+    res
+      .status(200)
+      .json({ message: `Bike with ID ${bikeId} - removed successfully.` });
+  } catch (error) {
+    handleError(res, error, 500, 'Removing bike database error');
+  }
 };
 
 exports.changeBikeStatus = async (req, res) => {

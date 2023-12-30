@@ -64,3 +64,13 @@ exports.validateCreateBike = async ({
 
   return null;
 };
+
+exports.validateDeleteBike = async (ID) => {
+  const existingBike = await Bike.findOne({ ID });
+
+  if (!existingBike) {
+    return { error: 'Bike not found.' };
+  }
+
+  return null;
+};
