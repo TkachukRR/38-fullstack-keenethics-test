@@ -5,6 +5,7 @@ const {
   validateChangeBikeStatus,
 } = require('../utils/validators');
 const { handleError } = require('../controllers/error.controller');
+const { BIKE_STATUS_ENUM } = require('../enums');
 
 exports.createBike = async (req, res) => {
   try {
@@ -78,5 +79,34 @@ exports.changeBikeStatus = async (req, res) => {
 
 exports.getBikesStats = async (req, res) => {
   try {
-  } catch (error) {}
+    const totalBikesQuantity = await Bike.countDocuments();
+    const availableBikesQuantity = await Bike.countDocuments({
+      status: BIKE_STATUS_ENUM.AVAILABLE,
+    });
+    const bookedBikesQuantity = await Bike.countDocuments({
+      status: BIKE_STATUS_ENUM.BUSY,
+    });
+    const averageBookingPrice = await Bike.aggregate([
+      {
+        $group: {
+          _id: null,
+          averagePrice: { $avg: '$price' },
+        },
+      },
+    ]);
+
+    const stats = {
+      totalBikesQuantity,
+      availableBikesQuantity,
+      bookedBikesQuantity,
+      averageBookingPrice:
+        averageBookingPrice.length > 0
+          ? averageBookingPrice[0].averagePrice
+          : 0,
+    };
+
+    res.status(200).json(stats);
+  } catch (error) {
+    handleError(res, error, 500, 'Getting bikes stats error');
+  }
 };
