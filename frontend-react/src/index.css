@@ -1,1 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Saira:wght@400;700&display=swap');
 
+:root {
+    --font-logo: 'Saira Stencil One', sans-serif;
+    --font-page: 'Saira', sans-serif;
+
+    --color-background-primary: #FFFFFF;
+    --color-background-secondary: #696969;
+    --color-background-tertiary: #E8E8E8;
+
+    --color-text-logo: #E8E8E8;
+
+    --color-text-primary: #333333;
+    --color-text-secondary: #717171;
+    --color-text-tertiary: #000000;
+    --color-text-quaternary: #FFFFFF;
+    --color-text-quinary: #CBCACA;
+
+    --color-product-list-border: #C4C4C4;
+
+    --color-product-card-border-available: #6FCF97;
+    --color-product-card-border-busy: #F2994A;
+    --color-product-card-border-unavailable: #EB5757;
+
+    --font-size-xxs: 8px;
+    --font-size-xs: 12px;
+    --font-size-s: 14px;
+    --font-size-m: 18px;
+    --font-size-l: 20px;
+    --font-size-xl: 24px;
+
+    --max-width: 1152px;
+}
+
+*, *:after, a:before{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+    font-family: var(--font-page);
+    font-weight: 400;
+    color: var(--color-text-primary);
+}
+
+.container{
+    margin: 0 auto;
+    max-width: var(--max-width);
+    width: 100%;
+    padding: 0 16px;
+}
