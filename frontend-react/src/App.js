@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import Main from './components/Main/Main';
 
 export default function App() {
   const headerTitle = 'ADMIN.BIKE - BOOKING.COM';
@@ -10,7 +11,7 @@ export default function App() {
   return (
     <div className="wrapper">
       <Header title={headerTitle} />
-      <main style={{ flex: '1' }}></main>
+      <Main />
       <Footer firstName={authorFirstName} lastName={authorLastName} />
     </div>
   );
