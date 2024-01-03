@@ -1,4 +1,5 @@
 import classes from './ProductList.module.css';
+import ProductCard from '../ProductCard/ProductCard';
 
 export default function ProductList({ bikes }) {
   return (
@@ -6,7 +7,7 @@ export default function ProductList({ bikes }) {
       {bikes.map((bike) => {
         return (
           <li className={classes.bike__item} key={bike.ID}>
-            {bike.name}
+            <ProductCard product={bike} />
           </li>
         );
       })}
