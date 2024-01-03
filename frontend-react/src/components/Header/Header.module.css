@@ -1,0 +1,12 @@
+.header{
+    background-color: var(--color-background-secondary);
+    padding-top: 4px;
+}
+
+.header__title {
+    font-family: var(--font-logo);
+    font-size: var(--font-size-xl);
+    font-weight: normal;
+    color: var(--color-text-logo);
+    line-height: 38px;
+}
