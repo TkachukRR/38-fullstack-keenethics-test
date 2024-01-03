@@ -1,0 +1,17 @@
+.footer{
+    background-color: var(--color-background-secondary);
+    padding: 5.5px 0;
+}
+
+.developer{
+    font-size: var(--font-size-l);
+    color: var(--color-text-quinary);
+    line-height: 31.5px;
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.developer__name{
+    color: var(--color-text-quaternary);
+}
