@@ -1,6 +1,7 @@
 import classes from './Main.module.css';
 import { useCallback, useState, useEffect } from 'react';
 import ProductList from '../ProductList/ProductList';
+import CreateBikeForm from '../CreateBikeForm/CreateBikeForm';
 
 export default function Main() {
   const [bikes, setBikes] = useState([]);
@@ -30,7 +31,9 @@ export default function Main() {
         <section className={classes.section__left}>
           <ProductList bikes={bikes} setBikes={setBikes} />
         </section>
-        <section className={classes.section__right}></section>
+        <section className={classes.section__right}>
+          <CreateBikeForm />
+        </section>
       </div>
     </main>
   );

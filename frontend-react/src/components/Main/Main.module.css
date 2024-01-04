@@ -10,10 +10,10 @@
 }
 
 .section__left{
-    width: 100%;
-    max-width: 640px;
     border-right: 1px solid var(--color-product-list-border);
+    flex-basis: 640px;
 }
 
 .section__right{
+    flex-basis: calc(100% - 640px);
 }
