@@ -3,6 +3,7 @@ import { useCallback, useState, useEffect } from 'react';
 import ProductList from '../ProductList/ProductList';
 import CreateBikeForm from '../CreateBikeForm/CreateBikeForm';
 import Stats from '../Stats/Stats';
+import { ADMIN_BIKES_URL } from '../../apiUrls';
 
 export default function Main() {
   const [bikes, setBikes] = useState([]);
@@ -10,7 +11,7 @@ export default function Main() {
 
   const fetchBikes = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/bikes/all');
+      const response = await fetch(ADMIN_BIKES_URL.getAll);
       const bikes = await response.json();
 
       if (!response.ok) {
@@ -25,9 +26,7 @@ export default function Main() {
 
   const fetchStatistics = useCallback(async () => {
     try {
-      const response = await fetch(
-        'http://localhost:5000/api/admin/bikes/stats',
-      );
+      const response = await fetch(ADMIN_BIKES_URL.getStats);
       const statistics = await response.json();
 
       if (!response.ok) {

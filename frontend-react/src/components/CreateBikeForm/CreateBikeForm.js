@@ -6,6 +6,7 @@ import {
   validateTextFieldLength,
   validateRequire,
 } from '../../utils/validators';
+import { ADMIN_BIKES_URL } from '../../apiUrls';
 
 const FieldTypeEnum = { number: 'number', text: 'text' };
 
@@ -133,16 +134,13 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
     };
 
     try {
-      const response = await fetch(
-        'http://localhost:5000/api/admin/bikes/create',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newBike),
+      const response = await fetch(ADMIN_BIKES_URL.createBike, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify(newBike),
+      });
 
       if (!response.ok) {
         throw new Error('Loading bikes error');

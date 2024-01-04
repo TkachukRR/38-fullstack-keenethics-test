@@ -1,5 +1,6 @@
 import classes from './ProductCard.module.css';
 import { useEffect, useState } from 'react';
+import { ADMIN_BIKES_URL } from '../../apiUrls';
 
 const StatusEnum = {
   AVAILABLE: 'available',
@@ -20,7 +21,7 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
     const newStatus = event.target.value;
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/bikes/${product.ID}/status`,
+        `${ADMIN_BIKES_URL.updateBikeStatus}/${product.ID}/status`,
         {
           method: 'PUT',
           headers: {
@@ -43,7 +44,7 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/bikes/delete/${product.ID}`,
+        `${ADMIN_BIKES_URL.deleteBike}/${product.ID}`,
         {
           method: 'DELETE',
           headers: {
