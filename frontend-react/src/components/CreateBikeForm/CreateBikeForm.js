@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const FieldTypeEnum = { number: 'number', text: 'text' };
 
-export default function CreateBikeForm({ bikes, fetchBikes }) {
+export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
   const initialFormData = {
     id: {
       value: '',
@@ -156,6 +156,7 @@ export default function CreateBikeForm({ bikes, fetchBikes }) {
 
       fetchBikes();
       setFormData(initialFormData);
+      fetchStatistics();
     } catch (error) {
       console.error('Loading bikes error: ', error);
     }

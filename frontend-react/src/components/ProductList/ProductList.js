@@ -1,17 +1,19 @@
 import classes from './ProductList.module.css';
 import ProductCard from '../ProductCard/ProductCard';
 
-export default function ProductList({ bikes, setBikes }) {
+export default function ProductList({ bikes, setBikes, fetchStatistics }) {
   const handleProductStatusChange = (productId, newStatus) => {
     const updatedBikes = bikes.map((bike) =>
       bike.ID === productId ? { ...bike, status: newStatus } : bike,
     );
 
     setBikes(updatedBikes);
+    fetchStatistics();
   };
 
   const handleDelete = (productId) => {
     setBikes((prevBikes) => prevBikes.filter((bike) => bike.ID !== productId));
+    fetchStatistics();
   };
 
   return (

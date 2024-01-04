@@ -49,10 +49,18 @@ export default function Main() {
     <main className={classes.main}>
       <div className={'container ' + classes.container}>
         <section className={classes.section__left}>
-          <ProductList bikes={bikes} setBikes={setBikes} />
+          <ProductList
+            bikes={bikes}
+            setBikes={setBikes}
+            fetchStatistics={fetchStatistics}
+          />
         </section>
         <section className={classes.section__right}>
-          <CreateBikeForm bikes={bikes} fetchBikes={fetchBikes} />
+          <CreateBikeForm
+            bikes={bikes}
+            fetchBikes={fetchBikes}
+            fetchStatistics={fetchStatistics}
+          />
           <Stats stats={statistics} bikes={bikes} />
         </section>
       </div>
