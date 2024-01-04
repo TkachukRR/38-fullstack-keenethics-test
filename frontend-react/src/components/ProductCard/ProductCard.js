@@ -7,7 +7,7 @@ const StatusEnum = {
   UNAVAILABLE: 'unavailable',
 };
 
-export default function ProductCard({ product, onChangeStatus }) {
+export default function ProductCard({ product, onChangeStatus, onDelete }) {
   const { name, type, color, ID, status, price } = product;
   const [selectedStatus, setSelectedStatus] = useState('');
 
@@ -37,6 +37,28 @@ export default function ProductCard({ product, onChangeStatus }) {
       onChangeStatus(product.ID, newStatus);
     } catch (error) {
       console.error('Changing bike status error:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/admin/bikes/delete/${product.ID}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Deleting bike error');
+      }
+
+      onDelete(product.ID);
+    } catch (error) {
+      console.error('Deleting bike error: ', error);
     }
   };
 
@@ -70,7 +92,7 @@ export default function ProductCard({ product, onChangeStatus }) {
         </select>
       </div>
       <div className={classes.product__price}>{formattedPrice} UAH/hr.</div>
-      <button className={classes.product__delete}>
+      <button className={classes.product__delete} onClick={handleDelete}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="10"

@@ -10,6 +10,10 @@ export default function ProductList({ bikes, setBikes }) {
     setBikes(updatedBikes);
   };
 
+  const handleDelete = (productId) => {
+    setBikes((prevBikes) => prevBikes.filter((bike) => bike.ID !== productId));
+  };
+
   return (
     <ul className={classes.bike__list}>
       {bikes.map((bike) => {
@@ -25,6 +29,7 @@ export default function ProductList({ bikes, setBikes }) {
             <ProductCard
               product={bike}
               onChangeStatus={handleProductStatusChange}
+              onDelete={handleDelete}
             />
           </li>
         );
