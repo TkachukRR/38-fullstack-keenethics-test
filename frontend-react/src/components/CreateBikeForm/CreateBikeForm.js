@@ -1,5 +1,11 @@
 import classes from './CreateBikeForm.module.css';
 import { useState } from 'react';
+import {
+  validateNumberField,
+  validateUniqueId,
+  validateTextFieldLength,
+  validateRequire,
+} from '../../utils/validators';
 
 const FieldTypeEnum = { number: 'number', text: 'text' };
 
@@ -72,7 +78,7 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
 
   const validateField = (fieldId, value) => {
     if (fieldId === 'id') {
-      return validateUniqueId(value);
+      return validateUniqueId(bikes, value);
     }
 
     if (formData[fieldId].type === FieldTypeEnum.text) {
@@ -83,19 +89,7 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
       return validateNumberField(value);
     }
 
-    return value.trim().length > 0;
-  };
-
-  const validateTextFieldLength = (val) => {
-    return val.trim().length > 5;
-  };
-
-  const validateNumberField = (val) => {
-    return val > 0;
-  };
-
-  const validateUniqueId = (id) => {
-    return id > 0 && !bikes.some((bike) => bike.ID === +id);
+    return validateRequire(value);
   };
 
   const checkFormValidity = (formData) => {
