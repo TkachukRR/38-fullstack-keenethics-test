@@ -8,36 +8,43 @@ export default function CreateBikeForm({ bikes }) {
     id: {
       value: '',
       error: true,
+      touched: false,
       type: FieldTypeEnum.number,
     },
     name: {
       value: '',
       error: true,
+      touched: false,
       type: FieldTypeEnum.text,
     },
     type: {
       value: '',
       error: true,
+      touched: false,
       type: FieldTypeEnum.text,
     },
     color: {
       value: '',
       error: true,
+      touched: false,
       type: FieldTypeEnum.text,
     },
     wheelSize: {
       value: '',
       error: true,
+      touched: false,
       type: FieldTypeEnum.number,
     },
     price: {
       value: '',
       error: true,
+      touched: false,
       type: FieldTypeEnum.number,
     },
     description: {
       value: '',
       error: true,
+      touched: false,
       type: FieldTypeEnum.text,
     },
   };
@@ -93,10 +100,22 @@ export default function CreateBikeForm({ bikes }) {
 
   const checkFormValidity = (formData) => {
     const isFormValid = Object.keys(formData).every(
-      (fieldName) => !formData[fieldName].error,
+      (fieldName) => !formData[fieldName].error && formData[fieldName].touched,
     );
 
     setSubmitDisabled(!isFormValid);
+  };
+
+  const handleTouched = (e) => {
+    const { id } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: {
+        ...prevData[id],
+        touched: true,
+      },
+    }));
   };
 
   return (
@@ -111,6 +130,13 @@ export default function CreateBikeForm({ bikes }) {
               id="name"
               value={formData.name.value}
               onChange={handleChange}
+              onBlur={handleTouched}
+              style={{
+                outlineColor:
+                  formData.name.touched && formData.name.error
+                    ? 'var(--color-form-field-outline-invalid)'
+                    : 'transparent',
+              }}
             />
           </label>
           <label htmlFor="color">
@@ -121,6 +147,13 @@ export default function CreateBikeForm({ bikes }) {
               id="color"
               value={formData.color.value}
               onChange={handleChange}
+              onBlur={handleTouched}
+              style={{
+                outlineColor:
+                  formData.color.touched && formData.color.error
+                    ? 'var(--color-form-field-outline-invalid)'
+                    : 'transparent',
+              }}
             />
           </label>
           <label htmlFor="price">
@@ -131,6 +164,13 @@ export default function CreateBikeForm({ bikes }) {
               id="price"
               value={formData.price.value}
               onChange={handleChange}
+              onBlur={handleTouched}
+              style={{
+                outlineColor:
+                  formData.price.touched && formData.price.error
+                    ? 'var(--color-form-field-outline-invalid)'
+                    : 'transparent',
+              }}
             />
           </label>
         </div>
@@ -143,6 +183,13 @@ export default function CreateBikeForm({ bikes }) {
               id="type"
               value={formData.type.value}
               onChange={handleChange}
+              onBlur={handleTouched}
+              style={{
+                outlineColor:
+                  formData.type.touched && formData.type.error
+                    ? 'var(--color-form-field-outline-invalid)'
+                    : 'transparent',
+              }}
             />
           </label>
           <label htmlFor="wheelSize">
@@ -153,6 +200,13 @@ export default function CreateBikeForm({ bikes }) {
               id="wheelSize"
               value={formData.wheelSize.value}
               onChange={handleChange}
+              onBlur={handleTouched}
+              style={{
+                outlineColor:
+                  formData.wheelSize.touched && formData.wheelSize.error
+                    ? 'var(--color-form-field-outline-invalid)'
+                    : 'transparent',
+              }}
             />
           </label>
           <label htmlFor="id">
@@ -163,6 +217,13 @@ export default function CreateBikeForm({ bikes }) {
               id="id"
               value={formData.id.value}
               onChange={handleChange}
+              onBlur={handleTouched}
+              style={{
+                outlineColor:
+                  formData.id.touched && formData.id.error
+                    ? 'var(--color-form-field-outline-invalid)'
+                    : 'transparent',
+              }}
             />
           </label>
         </div>
@@ -175,6 +236,13 @@ export default function CreateBikeForm({ bikes }) {
           placeholder="Description"
           value={formData.description.value}
           onChange={handleChange}
+          onBlur={handleTouched}
+          style={{
+            outlineColor:
+              formData.description.touched && formData.description.error
+                ? 'var(--color-form-field-outline-invalid)'
+                : 'transparent',
+          }}
         />
       </label>
       <div className={classes.form__buttons}>

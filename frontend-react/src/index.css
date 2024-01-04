@@ -22,6 +22,8 @@
     --color-product-card-border-busy: #F2994A;
     --color-product-card-border-unavailable: #EB5757;
 
+    --color-form-field-outline-invalid: #EB5757;
+
     --font-size-xxs: 8px;
     --font-size-xs: 12px;
     --font-size-s: 14px;
