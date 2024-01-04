@@ -43,7 +43,7 @@ exports.removeBikeById = async (req, res) => {
       return res.status(404).json(validationError);
     }
 
-    await Bike.deleteOne();
+    await Bike.deleteOne({ ID: bikeId });
 
     res
       .status(200)
