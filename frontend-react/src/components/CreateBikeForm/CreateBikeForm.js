@@ -37,6 +37,22 @@ export default function CreateBikeForm() {
 
   const [formData, setFormData] = useState(initialFormData);
 
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+
+    setFormData((prevState) => {
+      const updatedData = {
+        ...prevState,
+        [id]: {
+          ...prevState[id],
+          value,
+        },
+      };
+
+      return updatedData;
+    });
+  };
+
   return (
     <form className={classes.form}>
       <div className={classes.form__wrapper}>
@@ -47,6 +63,8 @@ export default function CreateBikeForm() {
               type={formData.name.type}
               placeholder="Name"
               id="name"
+              value={formData.name.value}
+              onChange={handleChange}
             />
           </label>
           <label htmlFor="color">
@@ -55,6 +73,8 @@ export default function CreateBikeForm() {
               type={formData.color.type}
               placeholder="Color"
               id="color"
+              value={formData.color.value}
+              onChange={handleChange}
             />
           </label>
           <label htmlFor="price">
@@ -63,6 +83,8 @@ export default function CreateBikeForm() {
               type={formData.price.type}
               placeholder="Price"
               id="price"
+              value={formData.price.value}
+              onChange={handleChange}
             />
           </label>
         </div>
@@ -73,6 +95,8 @@ export default function CreateBikeForm() {
               type={formData.type.type}
               placeholder="Type"
               id="type"
+              value={formData.type.value}
+              onChange={handleChange}
             />
           </label>
           <label htmlFor="wheelSize">
@@ -81,6 +105,8 @@ export default function CreateBikeForm() {
               type={formData.wheelSize.type}
               placeholder="Wheel Size"
               id="wheelSize"
+              value={formData.wheelSize.value}
+              onChange={handleChange}
             />
           </label>
           <label htmlFor="id">
@@ -89,6 +115,8 @@ export default function CreateBikeForm() {
               type={formData.id.type}
               placeholder="ID (slug): ХХХХХХХХХХХХХ"
               id="id"
+              value={formData.id.value}
+              onChange={handleChange}
             />
           </label>
         </div>
@@ -99,6 +127,8 @@ export default function CreateBikeForm() {
           className={classes.form__textarea}
           id="description"
           placeholder="Description"
+          value={formData.description.value}
+          onChange={handleChange}
         />
       </label>
       <div className={classes.form__buttons}>
