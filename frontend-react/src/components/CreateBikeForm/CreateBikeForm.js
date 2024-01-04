@@ -100,7 +100,7 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
 
   const checkFormValidity = (formData) => {
     const isFormValid = Object.keys(formData).every(
-      (fieldName) => !formData[fieldName].error && formData[fieldName].touched,
+      (fieldName) => !formData[fieldName].error,
     );
 
     setSubmitDisabled(!isFormValid);
