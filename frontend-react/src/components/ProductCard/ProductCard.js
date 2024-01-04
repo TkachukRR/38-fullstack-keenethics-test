@@ -8,7 +8,12 @@ const StatusEnum = {
   UNAVAILABLE: 'unavailable',
 };
 
-export default function ProductCard({ product, onChangeStatus, onDelete }) {
+export default function ProductCard({
+  product,
+  onChangeStatus,
+  onDelete,
+  showNotification,
+}) {
   const { name, type, color, ID, status, price } = product;
   const [selectedStatus, setSelectedStatus] = useState('');
 
@@ -35,8 +40,18 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
       }
 
       setSelectedStatus(newStatus);
+      showNotification({
+        message: 'Bike status changed',
+        type: 'success',
+        duration: 2000,
+      });
       onChangeStatus(product.ID, newStatus);
     } catch (error) {
+      showNotification({
+        message: 'Bike status not changed',
+        type: 'error',
+        duration: 2000,
+      });
       console.error('Changing bike status error:', error);
     }
   };
@@ -56,9 +71,18 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
       if (!response.ok) {
         throw new Error('Deleting bike error');
       }
-
+      showNotification({
+        message: 'Bike deleted',
+        type: 'success',
+        duration: 2000,
+      });
       onDelete(product.ID);
     } catch (error) {
+      showNotification({
+        message: 'Bike not deleted',
+        type: 'error',
+        duration: 2000,
+      });
       console.error('Deleting bike error: ', error);
     }
   };

@@ -1,0 +1,19 @@
+.modal {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-text-primary);
+    font-weight: 700;
+}
+
+.success {
+    color: var(--color-notification-success);
+}
+
+.error {
+    color: var(--color-notification-error);
+}

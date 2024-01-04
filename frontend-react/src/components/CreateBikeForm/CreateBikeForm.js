@@ -10,7 +10,12 @@ import { ADMIN_BIKES_URL } from '../../apiUrls';
 
 const FieldTypeEnum = { number: 'number', text: 'text' };
 
-export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
+export default function CreateBikeForm({
+  bikes,
+  fetchBikes,
+  fetchStatistics,
+  showNotification,
+}) {
   const initialFormData = {
     id: {
       value: '',
@@ -146,10 +151,20 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
         throw new Error('Loading bikes error');
       }
 
+      showNotification({
+        message: 'New bike created',
+        type: 'success',
+        duration: 2000,
+      });
       fetchBikes();
       setFormData(initialFormData);
       fetchStatistics();
     } catch (error) {
+      showNotification({
+        message: 'Created bike error',
+        type: 'error',
+        duration: 2000,
+      });
       console.error('Loading bikes error: ', error);
     }
   };
