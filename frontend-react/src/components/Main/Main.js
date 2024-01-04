@@ -2,9 +2,11 @@ import classes from './Main.module.css';
 import { useCallback, useState, useEffect } from 'react';
 import ProductList from '../ProductList/ProductList';
 import CreateBikeForm from '../CreateBikeForm/CreateBikeForm';
+import Stats from '../Stats/Stats';
 
 export default function Main() {
   const [bikes, setBikes] = useState([]);
+  const [statistics, setStatistics] = useState({});
 
   const fetchBikes = useCallback(async () => {
     try {
@@ -21,9 +23,27 @@ export default function Main() {
     }
   }, []);
 
+  const fetchStatistics = useCallback(async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/admin/bikes/stats',
+      );
+      const statistics = await response.json();
+
+      if (!response.ok) {
+        throw new Error('Loading statistics error');
+      }
+
+      setStatistics(statistics);
+    } catch (error) {
+      console.error('Loading statistics error: ', error);
+    }
+  }, []);
+
   useEffect(() => {
     fetchBikes();
-  }, [fetchBikes]);
+    fetchStatistics();
+  }, [fetchBikes, fetchStatistics]);
 
   return (
     <main className={classes.main}>
@@ -33,6 +53,7 @@ export default function Main() {
         </section>
         <section className={classes.section__right}>
           <CreateBikeForm bikes={bikes} fetchBikes={fetchBikes} />
+          <Stats stats={statistics} bikes={bikes} />
         </section>
       </div>
     </main>
