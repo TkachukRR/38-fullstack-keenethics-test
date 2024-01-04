@@ -32,7 +32,7 @@ export default function Main() {
           <ProductList bikes={bikes} setBikes={setBikes} />
         </section>
         <section className={classes.section__right}>
-          <CreateBikeForm />
+          <CreateBikeForm bikes={bikes} />
         </section>
       </div>
     </main>

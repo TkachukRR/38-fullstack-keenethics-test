@@ -3,34 +3,41 @@ import { useState } from 'react';
 
 const FieldTypeEnum = { number: 'number', text: 'text' };
 
-export default function CreateBikeForm() {
+export default function CreateBikeForm({ bikes }) {
   const initialFormData = {
     id: {
       value: '',
+      error: true,
       type: FieldTypeEnum.number,
     },
     name: {
       value: '',
+      error: true,
       type: FieldTypeEnum.text,
     },
     type: {
       value: '',
+      error: true,
       type: FieldTypeEnum.text,
     },
     color: {
       value: '',
+      error: true,
       type: FieldTypeEnum.text,
     },
     wheelSize: {
       value: '',
+      error: true,
       type: FieldTypeEnum.number,
     },
     price: {
       value: '',
+      error: true,
       type: FieldTypeEnum.number,
     },
     description: {
       value: '',
+      error: true,
       type: FieldTypeEnum.text,
     },
   };
@@ -46,11 +53,40 @@ export default function CreateBikeForm() {
         [id]: {
           ...prevState[id],
           value,
+          error: !validateField(id, value),
         },
       };
 
       return updatedData;
     });
+  };
+
+  const validateField = (fieldId, value) => {
+    if (fieldId === 'id') {
+      return validateUniqueId(value);
+    }
+
+    if (formData[fieldId].type === FieldTypeEnum.text) {
+      return validateTextFieldLength(value);
+    }
+
+    if (formData[fieldId].type === FieldTypeEnum.number) {
+      return validateNumberField(value);
+    }
+
+    return value.trim().length > 0;
+  };
+
+  const validateTextFieldLength = (val) => {
+    return val.trim().length > 5;
+  };
+
+  const validateNumberField = (val) => {
+    return val > 0;
+  };
+
+  const validateUniqueId = (id) => {
+    return id > 0 && !bikes.some((bike) => bike.ID === +id);
   };
 
   return (
