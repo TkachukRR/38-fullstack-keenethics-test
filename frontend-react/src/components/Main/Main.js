@@ -32,7 +32,7 @@ export default function Main() {
           <ProductList bikes={bikes} setBikes={setBikes} />
         </section>
         <section className={classes.section__right}>
-          <CreateBikeForm bikes={bikes} />
+          <CreateBikeForm bikes={bikes} fetchBikes={fetchBikes} />
         </section>
       </div>
     </main>

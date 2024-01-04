@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const FieldTypeEnum = { number: 'number', text: 'text' };
 
-export default function CreateBikeForm({ bikes }) {
+export default function CreateBikeForm({ bikes, fetchBikes }) {
   const initialFormData = {
     id: {
       value: '',
@@ -122,8 +122,47 @@ export default function CreateBikeForm({ bikes }) {
     setFormData(initialFormData);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addBike();
+  };
+
+  const addBike = async () => {
+    const newBike = {
+      ID: +formData.id.value,
+      name: formData.name.value,
+      type: formData.type.value,
+      color: formData.color.value,
+      wheelSize: +formData.wheelSize.value,
+      price: +formData.price.value,
+      description: formData.description.value,
+    };
+
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/admin/bikes/create',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newBike),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Loading bikes error');
+      }
+
+      fetchBikes();
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error('Loading bikes error: ', error);
+    }
+  };
+
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={handleSubmit}>
       <div className={classes.form__wrapper}>
         <div>
           <label htmlFor="name">
