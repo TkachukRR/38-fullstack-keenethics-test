@@ -1,6 +1,42 @@
 import classes from './CreateBikeForm.module.css';
+import { useState } from 'react';
+
+const FieldTypeEnum = { number: 'number', text: 'text' };
 
 export default function CreateBikeForm() {
+  const initialFormData = {
+    id: {
+      value: '',
+      type: FieldTypeEnum.number,
+    },
+    name: {
+      value: '',
+      type: FieldTypeEnum.text,
+    },
+    type: {
+      value: '',
+      type: FieldTypeEnum.text,
+    },
+    color: {
+      value: '',
+      type: FieldTypeEnum.text,
+    },
+    wheelSize: {
+      value: '',
+      type: FieldTypeEnum.number,
+    },
+    price: {
+      value: '',
+      type: FieldTypeEnum.number,
+    },
+    description: {
+      value: '',
+      type: FieldTypeEnum.text,
+    },
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+
   return (
     <form className={classes.form}>
       <div className={classes.form__wrapper}>
@@ -8,7 +44,7 @@ export default function CreateBikeForm() {
           <label htmlFor="name">
             <input
               className={classes.form__input}
-              type="text"
+              type={formData.name.type}
               placeholder="Name"
               id="name"
             />
@@ -16,7 +52,7 @@ export default function CreateBikeForm() {
           <label htmlFor="color">
             <input
               className={classes.form__input}
-              type="text"
+              type={formData.color.type}
               placeholder="Color"
               id="color"
             />
@@ -24,7 +60,7 @@ export default function CreateBikeForm() {
           <label htmlFor="price">
             <input
               className={classes.form__input}
-              type="number"
+              type={formData.price.type}
               placeholder="Price"
               id="price"
             />
@@ -34,7 +70,7 @@ export default function CreateBikeForm() {
           <label htmlFor="type">
             <input
               className={classes.form__input}
-              type="text"
+              type={formData.type.type}
               placeholder="Type"
               id="type"
             />
@@ -42,7 +78,7 @@ export default function CreateBikeForm() {
           <label htmlFor="wheelSize">
             <input
               className={classes.form__input}
-              type="number"
+              type={formData.wheelSize.type}
               placeholder="Wheel Size"
               id="wheelSize"
             />
@@ -50,7 +86,7 @@ export default function CreateBikeForm() {
           <label htmlFor="id">
             <input
               className={classes.form__input}
-              type="number"
+              type={formData.id.type}
               placeholder="ID (slug): ХХХХХХХХХХХХХ"
               id="id"
             />
