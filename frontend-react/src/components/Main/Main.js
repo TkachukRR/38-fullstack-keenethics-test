@@ -28,7 +28,7 @@ export default function Main() {
     <main className={classes.main}>
       <div className={'container ' + classes.container}>
         <section className={classes.section__left}>
-          <ProductList bikes={bikes} />
+          <ProductList bikes={bikes} setBikes={setBikes} />
         </section>
         <section className={classes.section__right}></section>
       </div>

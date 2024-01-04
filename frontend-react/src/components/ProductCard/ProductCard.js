@@ -1,10 +1,49 @@
 import classes from './ProductCard.module.css';
-export default function ProductCard({ product }) {
+import { useEffect, useState } from 'react';
+
+const StatusEnum = {
+  AVAILABLE: 'available',
+  BUSY: 'busy',
+  UNAVAILABLE: 'unavailable',
+};
+
+export default function ProductCard({ product, onChangeStatus }) {
   const { name, type, color, ID, status, price } = product;
+  const [selectedStatus, setSelectedStatus] = useState('');
+
   const formattedPrice = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,
     minimumIntegerDigits: 2,
   }).format(price);
+
+  const handleSelectedStatusChange = async (event) => {
+    const newStatus = event.target.value;
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/admin/bikes/${product.ID}/status`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status: newStatus }),
+        },
+      );
+      if (!response.ok) {
+        throw new Error('Changing bike status error');
+      }
+
+      setSelectedStatus(newStatus);
+      onChangeStatus(product.ID, newStatus);
+    } catch (error) {
+      console.error('Changing bike status error:', error);
+    }
+  };
+
+  useEffect(() => {
+    const valueFromBackend = status;
+    setSelectedStatus(valueFromBackend);
+  }, []);
 
   return (
     <div className={classes.product}>
@@ -15,7 +54,21 @@ export default function ProductCard({ product }) {
         </p>
       </div>
       <p className={classes.product__id}>ID {ID}</p>
-      <div className={classes.product__status}>STATUS: {status}</div>
+      <div className={classes.product__status}>
+        <label htmlFor="dropdown">STATUS: </label>
+        <select
+          id="dropdown"
+          value={selectedStatus}
+          className={classes.product__select}
+          onChange={handleSelectedStatusChange}
+        >
+          {Object.values(StatusEnum).map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className={classes.product__price}>{formattedPrice} UAH/hr.</div>
       <button className={classes.product__delete}>
         <svg

@@ -1,7 +1,15 @@
 import classes from './ProductList.module.css';
 import ProductCard from '../ProductCard/ProductCard';
 
-export default function ProductList({ bikes }) {
+export default function ProductList({ bikes, setBikes }) {
+  const handleProductStatusChange = (productId, newStatus) => {
+    const updatedBikes = bikes.map((bike) =>
+      bike.ID === productId ? { ...bike, status: newStatus } : bike,
+    );
+
+    setBikes(updatedBikes);
+  };
+
   return (
     <ul className={classes.bike__list}>
       {bikes.map((bike) => {
@@ -14,7 +22,10 @@ export default function ProductList({ bikes }) {
             }}
             key={bike.ID}
           >
-            <ProductCard product={bike} />
+            <ProductCard
+              product={bike}
+              onChangeStatus={handleProductStatusChange}
+            />
           </li>
         );
       })}
