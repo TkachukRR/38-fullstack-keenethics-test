@@ -118,6 +118,10 @@ export default function CreateBikeForm({ bikes }) {
     }));
   };
 
+  const handleReset = () => {
+    setFormData(initialFormData);
+  };
+
   return (
     <form className={classes.form}>
       <div className={classes.form__wrapper}>
@@ -258,7 +262,11 @@ export default function CreateBikeForm({ bikes }) {
         >
           Save
         </button>
-        <button className={classes.form__button} type="button">
+        <button
+          className={classes.form__button}
+          type="button"
+          onClick={handleReset}
+        >
           Reset
         </button>
       </div>
