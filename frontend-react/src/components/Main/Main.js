@@ -3,14 +3,15 @@ import { useCallback, useState, useEffect } from 'react';
 import ProductList from '../ProductList/ProductList';
 import CreateBikeForm from '../CreateBikeForm/CreateBikeForm';
 import Stats from '../Stats/Stats';
+import { ADMIN_BIKES_URL } from '../../apiUrls';
 
-export default function Main() {
+export default function Main({ showNotification }) {
   const [bikes, setBikes] = useState([]);
   const [statistics, setStatistics] = useState({});
 
   const fetchBikes = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/bikes/all');
+      const response = await fetch(ADMIN_BIKES_URL.getAll);
       const bikes = await response.json();
 
       if (!response.ok) {
@@ -25,9 +26,7 @@ export default function Main() {
 
   const fetchStatistics = useCallback(async () => {
     try {
-      const response = await fetch(
-        'http://localhost:5000/api/admin/bikes/stats',
-      );
+      const response = await fetch(ADMIN_BIKES_URL.getStats);
       const statistics = await response.json();
 
       if (!response.ok) {
@@ -53,6 +52,7 @@ export default function Main() {
             bikes={bikes}
             setBikes={setBikes}
             fetchStatistics={fetchStatistics}
+            showNotification={showNotification}
           />
         </section>
         <section className={classes.section__right}>
@@ -60,6 +60,7 @@ export default function Main() {
             bikes={bikes}
             fetchBikes={fetchBikes}
             fetchStatistics={fetchStatistics}
+            showNotification={showNotification}
           />
           <Stats stats={statistics} bikes={bikes} />
         </section>

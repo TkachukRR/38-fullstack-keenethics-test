@@ -1,9 +1,21 @@
 import classes from './CreateBikeForm.module.css';
 import { useState } from 'react';
+import {
+  validateNumberField,
+  validateUniqueId,
+  validateTextFieldLength,
+  validateRequire,
+} from '../../utils/validators';
+import { ADMIN_BIKES_URL } from '../../apiUrls';
 
 const FieldTypeEnum = { number: 'number', text: 'text' };
 
-export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
+export default function CreateBikeForm({
+  bikes,
+  fetchBikes,
+  fetchStatistics,
+  showNotification,
+}) {
   const initialFormData = {
     id: {
       value: '',
@@ -72,7 +84,7 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
 
   const validateField = (fieldId, value) => {
     if (fieldId === 'id') {
-      return validateUniqueId(value);
+      return validateUniqueId(bikes, value);
     }
 
     if (formData[fieldId].type === FieldTypeEnum.text) {
@@ -83,24 +95,12 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
       return validateNumberField(value);
     }
 
-    return value.trim().length > 0;
-  };
-
-  const validateTextFieldLength = (val) => {
-    return val.trim().length > 5;
-  };
-
-  const validateNumberField = (val) => {
-    return val > 0;
-  };
-
-  const validateUniqueId = (id) => {
-    return id > 0 && !bikes.some((bike) => bike.ID === +id);
+    return validateRequire(value);
   };
 
   const checkFormValidity = (formData) => {
     const isFormValid = Object.keys(formData).every(
-      (fieldName) => !formData[fieldName].error && formData[fieldName].touched,
+      (fieldName) => !formData[fieldName].error,
     );
 
     setSubmitDisabled(!isFormValid);
@@ -139,25 +139,32 @@ export default function CreateBikeForm({ bikes, fetchBikes, fetchStatistics }) {
     };
 
     try {
-      const response = await fetch(
-        'http://localhost:5000/api/admin/bikes/create',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newBike),
+      const response = await fetch(ADMIN_BIKES_URL.createBike, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify(newBike),
+      });
 
       if (!response.ok) {
         throw new Error('Loading bikes error');
       }
 
+      showNotification({
+        message: 'New bike created',
+        type: 'success',
+        duration: 2000,
+      });
       fetchBikes();
       setFormData(initialFormData);
       fetchStatistics();
     } catch (error) {
+      showNotification({
+        message: 'Created bike error',
+        type: 'error',
+        duration: 2000,
+      });
       console.error('Loading bikes error: ', error);
     }
   };

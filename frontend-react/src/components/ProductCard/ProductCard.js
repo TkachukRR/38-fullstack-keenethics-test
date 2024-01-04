@@ -1,5 +1,6 @@
 import classes from './ProductCard.module.css';
 import { useEffect, useState } from 'react';
+import { ADMIN_BIKES_URL } from '../../apiUrls';
 
 const StatusEnum = {
   AVAILABLE: 'available',
@@ -7,7 +8,12 @@ const StatusEnum = {
   UNAVAILABLE: 'unavailable',
 };
 
-export default function ProductCard({ product, onChangeStatus, onDelete }) {
+export default function ProductCard({
+  product,
+  onChangeStatus,
+  onDelete,
+  showNotification,
+}) {
   const { name, type, color, ID, status, price } = product;
   const [selectedStatus, setSelectedStatus] = useState('');
 
@@ -20,7 +26,7 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
     const newStatus = event.target.value;
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/bikes/${product.ID}/status`,
+        `${ADMIN_BIKES_URL.updateBikeStatus}/${product.ID}/status`,
         {
           method: 'PUT',
           headers: {
@@ -34,8 +40,18 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
       }
 
       setSelectedStatus(newStatus);
+      showNotification({
+        message: 'Bike status changed',
+        type: 'success',
+        duration: 2000,
+      });
       onChangeStatus(product.ID, newStatus);
     } catch (error) {
+      showNotification({
+        message: 'Bike status not changed',
+        type: 'error',
+        duration: 2000,
+      });
       console.error('Changing bike status error:', error);
     }
   };
@@ -43,7 +59,7 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/admin/bikes/delete/${product.ID}`,
+        `${ADMIN_BIKES_URL.deleteBike}/${product.ID}`,
         {
           method: 'DELETE',
           headers: {
@@ -55,9 +71,18 @@ export default function ProductCard({ product, onChangeStatus, onDelete }) {
       if (!response.ok) {
         throw new Error('Deleting bike error');
       }
-
+      showNotification({
+        message: 'Bike deleted',
+        type: 'success',
+        duration: 2000,
+      });
       onDelete(product.ID);
     } catch (error) {
+      showNotification({
+        message: 'Bike not deleted',
+        type: 'error',
+        duration: 2000,
+      });
       console.error('Deleting bike error: ', error);
     }
   };

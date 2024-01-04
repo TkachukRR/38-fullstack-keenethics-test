@@ -1,7 +1,12 @@
 import classes from './ProductList.module.css';
 import ProductCard from '../ProductCard/ProductCard';
 
-export default function ProductList({ bikes, setBikes, fetchStatistics }) {
+export default function ProductList({
+  bikes,
+  setBikes,
+  fetchStatistics,
+  showNotification,
+}) {
   const handleProductStatusChange = (productId, newStatus) => {
     const updatedBikes = bikes.map((bike) =>
       bike.ID === productId ? { ...bike, status: newStatus } : bike,
@@ -12,7 +17,7 @@ export default function ProductList({ bikes, setBikes, fetchStatistics }) {
   };
 
   const handleDelete = (productId) => {
-    setBikes((prevBikes) => prevBikes.filter((bike) => bike.ID !== productId));
+    setBikes(bikes.filter((bike) => bike.ID !== productId));
     fetchStatistics();
   };
 
@@ -32,6 +37,7 @@ export default function ProductList({ bikes, setBikes, fetchStatistics }) {
               product={bike}
               onChangeStatus={handleProductStatusChange}
               onDelete={handleDelete}
+              showNotification={showNotification}
             />
           </li>
         );
