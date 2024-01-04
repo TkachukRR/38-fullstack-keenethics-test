@@ -43,6 +43,7 @@ export default function CreateBikeForm({ bikes }) {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -56,6 +57,7 @@ export default function CreateBikeForm({ bikes }) {
           error: !validateField(id, value),
         },
       };
+      checkFormValidity(updatedData);
 
       return updatedData;
     });
@@ -87,6 +89,14 @@ export default function CreateBikeForm({ bikes }) {
 
   const validateUniqueId = (id) => {
     return id > 0 && !bikes.some((bike) => bike.ID === +id);
+  };
+
+  const checkFormValidity = (formData) => {
+    const isFormValid = Object.keys(formData).every(
+      (fieldName) => !formData[fieldName].error,
+    );
+
+    setSubmitDisabled(!isFormValid);
   };
 
   return (
@@ -168,7 +178,16 @@ export default function CreateBikeForm({ bikes }) {
         />
       </label>
       <div className={classes.form__buttons}>
-        <button className={classes.form__button} type="submit">
+        <button
+          className={classes.form__button}
+          type="submit"
+          style={{
+            background: isSubmitDisabled
+              ? 'var(--color-background-tertiary)'
+              : null,
+          }}
+          disabled={isSubmitDisabled}
+        >
           Save
         </button>
         <button className={classes.form__button} type="button">
