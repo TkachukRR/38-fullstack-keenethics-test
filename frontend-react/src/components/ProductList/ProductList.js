@@ -12,7 +12,7 @@ export default function ProductList({ bikes, setBikes, fetchStatistics }) {
   };
 
   const handleDelete = (productId) => {
-    setBikes((prevBikes) => prevBikes.filter((bike) => bike.ID !== productId));
+    setBikes(bikes.filter((bike) => bike.ID !== productId));
     fetchStatistics();
   };
 
