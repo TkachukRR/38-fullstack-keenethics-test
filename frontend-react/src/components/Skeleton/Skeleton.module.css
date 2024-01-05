@@ -1,5 +1,4 @@
 .skeleton{
-    vertical-align: bottom;
     display: inline-block;
     border-radius: 4px;
     background: linear-gradient(90deg, var(--color-background-secondary) 25%, var(--color-background-tertiary) 50%, var(--color-background-secondary) 75%);
