@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# **Frontend Part Description:**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The frontend application is constructed using React, offering users a user-friendly and instinctive interface to manage bicycle lists.
 
-## Available Scripts
+1. #### Project Structure:
 
-In the project directory, you can run:
+- The project adheres to a component-based structure, ensuring segregation, reusability, and code modularity.
 
-### `npm start`
+2. #### Extraction into Separate Files:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- URL Request Addresses:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  - Addresses for URL requests are organized and stored in separate files for better maintainability.
+  Utility Validators:
 
-### `npm test`
+- Utility functions responsible for data validation are extracted into dedicated files, promoting code organization and clarity.
+Styling:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    - Variables within the index.css file are utilized to manage font styles and color schemes.
 
-### `npm run build`
+3. #### Form Data Validation:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Blocking Form Submission:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    - The form submission button is disabled when there are invalid fields, indicated by a change in the button color.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Dynamic Output State:
 
-### `npm run eject`
+  - The state of the output is dynamically updated onBlur if it contains invalid data, ensuring real-time feedback.
+- 
+- Input Types Usage:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  - Input types are appropriately used to facilitate correct data input and enhance user experience.
+  
+- Data Validation and ID Uniqueness:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - Data entered into forms undergo validation checks, including the enforcement of a minimum length of 5 characters for text fields and the acceptance of only numerical input for numeric fields. Additionally, the system ensures the uniqueness of Bike IDs.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. #### Improving UX/UI:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Notification Popup Component:
 
-## Learn More
+    - A notification popup component is introduced, utilizing the <dialog> element to communicate interactions with the database. The component's input property consists of fields such as message, type (success/error), and duration, allowing customizable notification parameters.
+- Skeleton Component:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    - A skeleton component is implemented to present fields containing data from the backend gracefully while the data is in the loading phase. This enhances the user experience by providing visual feedback during data retrieval.
