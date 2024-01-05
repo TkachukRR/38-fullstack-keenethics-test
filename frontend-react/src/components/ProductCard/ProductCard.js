@@ -1,6 +1,7 @@
 import classes from './ProductCard.module.css';
 import { useEffect, useState } from 'react';
 import { ADMIN_BIKES_URL } from '../../apiUrls';
+import Skeleton from '../Skeleton/Skeleton';
 
 const StatusEnum = {
   AVAILABLE: 'available',
@@ -95,12 +96,15 @@ export default function ProductCard({
   return (
     <div className={classes.product}>
       <div className={classes.product__description}>
-        <h3 className={classes.product__name}>{name}</h3>
+        <h3 className={classes.product__name}>
+          {name || <Skeleton width={'50px'} />}
+        </h3>
         <p>
-          &nbsp; - {type} <span>({color})</span>
+          &nbsp; - {type || <Skeleton width={'50px'} />}{' '}
+          <span>({color || <Skeleton width={'50px'} />})</span>
         </p>
       </div>
-      <p className={classes.product__id}>ID {ID}</p>
+      <p className={classes.product__id}>ID: {ID || <Skeleton />}</p>
       <div className={classes.product__status}>
         <label htmlFor="dropdown">STATUS: </label>
         <select
@@ -116,7 +120,10 @@ export default function ProductCard({
           ))}
         </select>
       </div>
-      <div className={classes.product__price}>{formattedPrice} UAH/hr.</div>
+      <div className={classes.product__price}>
+        {formattedPrice > 0 ? formattedPrice : <Skeleton width={'120px'} />}{' '}
+        UAH/hr.
+      </div>
       <button className={classes.product__delete} onClick={handleDelete}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

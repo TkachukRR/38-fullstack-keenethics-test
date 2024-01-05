@@ -9,7 +9,7 @@
 .bike__item {
     padding: 10px;
     font-size: var(--font-size-s);
-    border: 2px solid var(--color-background-tertiary);
+    border: 2px solid var(--color-background-primary);
     border-radius: 10px;
     background: var(--color-background-tertiary);
 }
