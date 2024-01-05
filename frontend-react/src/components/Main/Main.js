@@ -6,7 +6,7 @@ import Stats from '../Stats/Stats';
 import { ADMIN_BIKES_URL } from '../../apiUrls';
 
 export default function Main({ showNotification }) {
-  const [bikes, setBikes] = useState([]);
+  const [bikes, setBikes] = useState(new Array(5).fill({}));
   const [statistics, setStatistics] = useState({});
 
   const fetchBikes = useCallback(async () => {

@@ -1,4 +1,5 @@
 import classes from './Styles.module.css';
+import Skeleton from '../Skeleton/Skeleton';
 
 export default function Stats({ stats }) {
   const formattedAverageCost = new Intl.NumberFormat('en-US', {
@@ -12,27 +13,43 @@ export default function Stats({ stats }) {
       <p>
         Total Bikes: &nbsp;
         <span className={classes.stats__number}>
-          {stats.totalBikesQuantity}
+          {stats.totalBikesQuantity >= 0 ? (
+            stats.totalBikesQuantity
+          ) : (
+            <Skeleton width={'76px'} />
+          )}
         </span>
       </p>
       <p>
         Available Bikes: &nbsp;
         <span className={classes.stats__number}>
-          {stats.availableBikesQuantity}
+          {stats.availableBikesQuantity >= 0 ? (
+            stats.availableBikesQuantity
+          ) : (
+            <Skeleton width={'49px'} />
+          )}
         </span>
       </p>
       <p>
         Booked Bikes: &nbsp;
         <span className={classes.stats__number}>
-          {stats.bookedBikesQuantity}
+          {stats.bookedBikesQuantity >= 0 ? (
+            stats.bookedBikesQuantity
+          ) : (
+            <Skeleton width={'60px'} />
+          )}
         </span>
       </p>
       <p>
         Average bike cost: &nbsp;
         <span className={classes.stats__number}>
-          {formattedAverageCost !== 'NaN' ? formattedAverageCost : ''}
+          {formattedAverageCost >= 0 ? (
+            formattedAverageCost
+          ) : (
+            <Skeleton width={'80px'} />
+          )}
         </span>
-        {formattedAverageCost !== 'NaN' ? ' UAH / hr.' : ''}
+        {' UAH / hr.'}
       </p>
     </div>
   );

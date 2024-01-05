@@ -23,15 +23,17 @@ export default function ProductList({
 
   return (
     <ul className={classes.bike__list}>
-      {bikes.map((bike) => {
+      {bikes.map((bike, index) => {
         return (
           <li
             className={classes.bike__item}
             style={{
-              borderColor: `var(--color-product-card-border-${bike.status})`,
+              borderColor: bike.status
+                ? `var(--color-product-card-border-${bike.status})`
+                : '',
               opacity: bike.status === 'unavailable' ? '.5' : '',
             }}
-            key={bike.ID}
+            key={bike.ID || index}
           >
             <ProductCard
               product={bike}
